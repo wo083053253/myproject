@@ -5,14 +5,14 @@ import threading
 import time
 import os
 
-from dor_ops.common.config import 
+from dor_ops.agent.agentconfig import AgentConfig
 
 LOG = logging.getLogger(__name__)
 
 DEFAULT_CONFIG_FILE = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))+"/etc/opsapirabbit/opsapirabbit.ini"
 
 def startup(config_path):
-    config = Config.from_disk(config_path)
+    config = AgentConfig.from_disk(config_path)
     if not len(config.enabled_services):
         raise Exception("No services enabled.")
 
