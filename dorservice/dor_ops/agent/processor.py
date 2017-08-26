@@ -6,8 +6,10 @@ import time
 import os
 
 from dor_ops.agent.agentconfig import AgentConfig
+from dor_ops.agent.consumer import Dor_OPSConsumer
 from dor_ops.services import ServiceFactory
 from dor_ops.common.config import BaseConfig
+
 
 LOG = logging.getLogger(__name__)
 
@@ -15,7 +17,7 @@ DEFAULT_CONFIG_FILE = BaseConfig.get_configfile()
 
 def _consumer_thread(service_name, service, config):
     LOG.info("Starting %s consumer" % service_name)
-    consumer = BpworkerConsumer(config.connection_params(),
+    consumer = Dor_OPSConsumer(config.connection_params(),
                                 routing_key=service_name,
                                 exchange_type='direct',
                                 queue=service_name,

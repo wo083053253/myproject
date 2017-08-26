@@ -28,14 +28,14 @@ from dor_ops.agent.agentconfig import (APP_ID,
                              DEFAULT_EXCHANGE,
                              DIRECT_EXCHANGE_TYPE,
                              DEFAULT_CONSUME_QUEUE)
-from bpworker.requests import RequestFactory
+from dor_ops.request import RequestFactory
 
 from jsonrpc.jsonrpc2 import JSONRPC20Request
 
 LOG = logging.getLogger(__name__)
 
 
-class BpworkerConsumer(object):
+class Dor_OPSConsumer(object):
 
     """This is an AMQP consumer that will handle unexpected interactions
     with RabbitMQ such as channel and connection closures.
@@ -365,7 +365,7 @@ class BpworkerConsumer(object):
             if not request:
                 request = self._decode_unknown_request(body)
 
-            response = BPWErrorResponse(request._id, -1, str(e))
+            response = DorErrorResponse(request._id, -1, str(e))
             LOG.error("Problem with incoming message: %s" % e)
 
         if response:
