@@ -1,9 +1,9 @@
 import os
 import logging
-import StringIO
+from io import StringIO
 import ConfigParser
 
-from dorservice.common.util import log_voluptuous_validation_errors
+from dor_ops.common.util import log_voluptuous_validation_errors
 
 from voluptuous import MultipleInvalid
 
@@ -66,6 +66,11 @@ class BaseConfig(object):
             return cls.from_confdir(path, required)
         raise ConfigPathNotFoundError(path)
     
+    @staticmethod
+    def get_configfile():
+        configFile = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))+"/etc/opsapirabbit/opsapirabbit.ini"
+        return configFile
+    
 class ConfigError(Exception):
     pass
 
@@ -84,4 +89,6 @@ class ConfigPathNotFoundError(ConfigError):
     def __init__(self, path):
         msg = "Configuration not found at path: %s" % path
         super(ConfigPathNotFoundError, self).__init__(msg)
+        
+
         
